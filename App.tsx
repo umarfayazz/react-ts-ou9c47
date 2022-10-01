@@ -11,20 +11,21 @@ export default class App extends React.Component {
 
   componentDidMount(){
     fetch("https://jsonplaceholder.typicode.com/users")
-    .then(Response=> Response.json)
+    .then(Response=> Response.json())
     .then(data => {
-      this.setState({
-        monsters: data.name
-      })
+      this.setState(()=>{
+        return {monsters:data}
+      }),
+      ()=>{
+        console.log(this.state)
+      }
     })
   }
   render(){
 
     return (
       <div>
-        <h1>{this.state.monsters.map(m=>{
-          
-        })}</h1>
+        <div>a</div>
       </div>
     );
   }
