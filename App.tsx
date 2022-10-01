@@ -22,10 +22,13 @@ export default class App extends React.Component {
     })
   }
   render(){
-
+    
     return (
       <div>
-        <div>a</div>
+        
+        <div>{this.state.monsters.map(e=>{
+          return <h1 key={e.id}> {e.name} </h1>
+        })}</div>
       </div>
     );
   }
