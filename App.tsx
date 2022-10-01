@@ -4,8 +4,10 @@ import './style.css';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       monsters: [],
+      searchField: '',
     };
   }
 
@@ -19,23 +21,24 @@ export default class App extends React.Component {
       });
   }
   render() {
+    const filteredMonsters = this.state.monsters.filter((user) => {
+      return user.name.toLocaleLowerCase().includes(this.state.searchField);
+    });
+    console.log(filteredMonsters);
     return (
       <div>
         <input
           type="search"
           placeholder="SEARCH MONSTER.."
           onChange={(event) => {
-            const searchFiled = event.target.value.toLocaleLowerCase();
-            const filteredArray = this.state.monsters.filter((user) => {
-              return user.name.toLocaleLowerCase().includes(searchFiled);
-            });
+            const searchField = event.target.value.toLocaleLowerCase();
             this.setState(() => {
-              return { monsters: filteredArray };
+              return { searchField };
             });
           }}
         />
         <div>
-          {this.state.monsters.map((e) => {
+          {filteredMonsters.map((e) => {
             return <h4 key={e.id}> {e.name} </h4>;
           })}
         </div>
