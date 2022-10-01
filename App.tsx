@@ -20,22 +20,25 @@ export default class App extends React.Component {
         });
       });
   }
-  render() {
-    const filteredMonsters = this.state.monsters.filter((user) => {
-      return user.name.toLocaleLowerCase().includes(this.state.searchField);
+  onSearchChange = (event) => {
+    const searchField = event.target.value.toLocaleLowerCase();
+    this.setState(() => {
+      return { searchField };
     });
-    console.log(filteredMonsters);
+  }
+  render() {
+    const {monsters,searchField} = this.state;
+    const {onSearchChange} = this;
+
+    const filteredMonsters = monsters.filter((user) => {
+      return user.name.toLocaleLowerCase().includes(searchField);
+    });
     return (
       <div>
         <input
           type="search"
           placeholder="SEARCH MONSTER.."
-          onChange={(event) => {
-            const searchField = event.target.value.toLocaleLowerCase();
-            this.setState(() => {
-              return { searchField };
-            });
-          }}
+          onChange={onSearchChange}
         />
         <div>
           {filteredMonsters.map((e) => {
